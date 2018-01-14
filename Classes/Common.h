@@ -15,7 +15,7 @@
 #define COLUMN_COUNT    8
 #define MAX_ROW_COUNT   10
 
-#define TYPE_COUNt      7
+#define TYPE_COUNT      7
 
 #define OBJECT_WIDTH    96
 #define OBJECT_HEIGHT   96

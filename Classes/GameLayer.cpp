@@ -28,11 +28,26 @@ bool GameLayer::init()
 
 void GameLayer::StartGame()
 {
+    srand((int)time(NULL));
+
+    static std::string objectNames[TYPE_COUNT] =
+    {
+        "Blue.png",
+        "Brown.png",
+        "Green.png",
+        "Pink.png",
+        "Purple.png",
+        "Red.png",
+        "Yellow.png",
+    };
+
     for (int x = 0; x < COLUMN_COUNT; ++x)
     {
         for (int y = 0; y < ROW_COUNT; ++y)
         {
-            Sprite* pGameObject = Sprite::create("Blue.png");
+            int type = rand() % TYPE_COUNT;
+
+            Sprite* pGameObject = Sprite::create(objectNames[type].c_str());
             m_pBoard[x][y] = pGameObject;
 
             float xPos = floorf(x * OBJECT_WIDTH);
