@@ -7,6 +7,12 @@
 
 #include "GameLayer.h"
 
+enum
+{
+    zBackground = 0,
+    zGameObject = 1,
+};
+
 bool GameLayer::init()
 {
     if ( Layer::init() == false)
@@ -17,7 +23,7 @@ bool GameLayer::init()
     cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("Background.png");
     pBackgroundSprite->setPosition(cocos2d::Vec2(0,0));
     pBackgroundSprite->setAnchorPoint(cocos2d::Vec2(0,0));
-    this->addChild(pBackgroundSprite);
+    this->addChild(pBackgroundSprite, zBackground);
 
     m_winSize = Director::getInstance()->getWinSize();
 
@@ -53,7 +59,7 @@ void GameLayer::StartGame()
             pGameObject->setAnchorPoint(Vec2(0, 1));
             pGameObject->setPosition(Common::ComputeXY(x, y));
 
-            this->addChild(pGameObject, 1);
+            this->addChild(pGameObject, zGameObject);
         }
     }
 }
