@@ -50,11 +50,8 @@ void GameLayer::StartGame()
             Sprite* pGameObject = Sprite::create(objectNames[type].c_str());
             m_pBoard[x][y] = pGameObject;
 
-            float xPos = floorf(x * OBJECT_WIDTH);
-            float yPos = m_winSize.height - floorf(y * OBJECT_HEIGHT);
-
             pGameObject->setAnchorPoint(Vec2(0, 1));
-            pGameObject->setPosition(Vec2(xPos,yPos));
+            pGameObject->setPosition(Common::ComputeXY(x, y));
 
             this->addChild(pGameObject, 1);
         }

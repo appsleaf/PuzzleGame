@@ -22,4 +22,14 @@
 
 USING_NS_CC;
 
+class Common
+{
+public:
+    static float ComputeX(float x);
+    static float ComputeY(float y);
+    static Vec2 ComputeXY(float x, float y);
+
+    static int ComputeBoardX(float x);
+    static int ComputeBoardY(float y);
+};
 #endif /* Common_h */

@@ -22,6 +22,7 @@
 		443D18C3200B3FF60087EAF0 /* Brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 443D18BB200B3FF60087EAF0 /* Brown.png */; };
 		443D18C4200B3FF60087EAF0 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 443D18BC200B3FF60087EAF0 /* Background.png */; };
 		443D18C5200B3FF60087EAF0 /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 443D18BD200B3FF60087EAF0 /* Purple.png */; };
+		443D18C8200B865D0087EAF0 /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 443D18C7200B865D0087EAF0 /* Common.cpp */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
 		46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
 		46880B8119C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
@@ -111,6 +112,7 @@
 		443D18BC200B3FF60087EAF0 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = "../../../../Documents/Cocos2d-x/Book_Exam/Chapter 5/Background.png"; sourceTree = "<group>"; };
 		443D18BD200B3FF60087EAF0 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Purple.png; path = "../../../../Documents/Cocos2d-x/Book_Exam/Chapter 5/Purple.png"; sourceTree = "<group>"; };
 		443D18C6200B50B30087EAF0 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		443D18C7200B865D0087EAF0 /* Common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Common.cpp; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 				443D18B4200B373C0087EAF0 /* GameLayer.cpp */,
 				443D18B3200B373C0087EAF0 /* GameLayer.h */,
+				443D18C7200B865D0087EAF0 /* Common.cpp */,
 				443D18C6200B50B30087EAF0 /* Common.h */,
 			);
 			name = Classes;
@@ -476,6 +479,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				443D18C8200B865D0087EAF0 /* Common.cpp in Sources */,
 				443D18B5200B373C0087EAF0 /* GameLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
