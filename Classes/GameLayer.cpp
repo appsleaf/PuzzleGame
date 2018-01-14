@@ -28,9 +28,22 @@ bool GameLayer::init()
 
 void GameLayer::StartGame()
 {
-    Sprite* pGameObject = Sprite::create("Blue.png");
-    pGameObject->setPosition(m_winSize.width / 2, m_winSize.height / 2);
-    this->addChild(pGameObject);
+    for (int x = 0; x < COLUMN_COUNT; ++x)
+    {
+        for (int y = 0; y < ROW_COUNT; ++y)
+        {
+            Sprite* pGameObject = Sprite::create("Blue.png");
+            m_pBoard[x][y] = pGameObject;
+
+            float xPos = floorf(x * OBJECT_WIDTH);
+            float yPos = m_winSize.height - floorf(y * OBJECT_HEIGHT);
+
+            pGameObject->setAnchorPoint(Vec2(0, 1));
+            pGameObject->setPosition(Vec2(xPos,yPos));
+
+            this->addChild(pGameObject, 1);
+        }
+    }
 }
 
 
