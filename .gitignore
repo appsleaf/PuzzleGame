@@ -1,4 +1,4 @@
-# OSX - https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
+o# OSX - https://github.com/github/gitignore/blob/master/Global/OSX.gitignore
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -113,4 +113,3 @@ proj.win32/Debug.*/
 proj.win32/Release.*/
 
 # others
-proj.android-studio add *.iml

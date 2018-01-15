@@ -13,6 +13,7 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
+		4413A615200CC887008B03B1 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4413A614200CC887008B03B1 /* GameObject.cpp */; };
 		443D18B5200B373C0087EAF0 /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 443D18B4200B373C0087EAF0 /* GameLayer.cpp */; };
 		443D18BE200B3FF60087EAF0 /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 443D18B6200B3FF50087EAF0 /* Green.png */; };
 		443D18BF200B3FF60087EAF0 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 443D18B7200B3FF60087EAF0 /* Yellow.png */; };
@@ -101,6 +102,8 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		4413A613200CC887008B03B1 /* GameObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameObject.h; sourceTree = "<group>"; };
+		4413A614200CC887008B03B1 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
 		443D18B3200B373C0087EAF0 /* GameLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameLayer.h; sourceTree = "<group>"; };
 		443D18B4200B373C0087EAF0 /* GameLayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameLayer.cpp; sourceTree = "<group>"; };
 		443D18B6200B3FF50087EAF0 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Green.png; path = "../../../../Documents/Cocos2d-x/Book_Exam/Chapter 5/Green.png"; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				443D18B3200B373C0087EAF0 /* GameLayer.h */,
 				443D18C7200B865D0087EAF0 /* Common.cpp */,
 				443D18C6200B50B30087EAF0 /* Common.h */,
+				4413A614200CC887008B03B1 /* GameObject.cpp */,
+				4413A613200CC887008B03B1 /* GameObject.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -474,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4413A615200CC887008B03B1 /* GameObject.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
