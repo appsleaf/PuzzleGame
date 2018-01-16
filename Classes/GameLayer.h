@@ -14,8 +14,15 @@ class GameLayer : public Layer
 {
 public:
     bool init();
-    static Scene* scene();
+
     void StartGame();
+
+    void onTouchesBegan(const std::vector<Touch *> &touches, Event *event);
+    void onTouchesMoved(const std::vector<Touch *> &touches, Event *event);
+    void onTouchesEnded(const std::vector<Touch *> &touches, Event *event);
+
+    static Scene* scene();
+
     CREATE_FUNC(GameLayer);
 private:
     Sprite* m_pBoard[COLUMN_COUNT][MAX_ROW_COUNT];

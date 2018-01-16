@@ -6,6 +6,7 @@
 //
 
 #include "GameLayer.h"
+#include "GameObject.h"
 
 enum
 {
@@ -20,14 +21,20 @@ bool GameLayer::init()
         return false;
     }
 
-    cocos2d::Sprite* pBackgroundSprite = cocos2d::Sprite::create("Background.png");
-    pBackgroundSprite->setPosition(cocos2d::Vec2(0,0));
-    pBackgroundSprite->setAnchorPoint(cocos2d::Vec2(0,0));
+    Sprite* pBackgroundSprite = Sprite::create("Background.png");
+    pBackgroundSprite->setPosition(Vec2(0,0));
+    pBackgroundSprite->setAnchorPoint(Vec2(0,0));
     this->addChild(pBackgroundSprite, zBackground);
 
     m_winSize = Director::getInstance()->getWinSize();
 
     StartGame();
+
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->onTouchesBegan = CC_CALLBACK_2(GameLayer::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(GameLayer::onTouchesMoved, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(GameLayer::onTouchesEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }
@@ -53,7 +60,7 @@ void GameLayer::StartGame()
         {
             int type = rand() % TYPE_COUNT;
 
-            Sprite* pGameObject = Sprite::create(objectNames[type].c_str());
+            GameObject* pGameObject = GameObject::Create(type);
             m_pBoard[x][y] = pGameObject;
 
             pGameObject->setAnchorPoint(Vec2(0, 1));
@@ -64,6 +71,32 @@ void GameLayer::StartGame()
     }
 }
 
+void GameLayer::onTouchesBegan(const std::vector<Touch*> &touches, cocos2d::Event *event)
+{
+    for (auto iter = touches.begin(); iter != touches.end(); iter++)
+    {
+        Point point = (*iter)->getLocation();
+        CCLOG("Touch Began = %f, %f", point.x, point.y);
+    }
+}
+
+void GameLayer::onTouchesMoved(const std::vector<Touch*> &touches, cocos2d::Event *event)
+{
+    for (auto iter = touches.begin(); iter != touches.end(); iter++)
+    {
+        Point point = (*iter)->getLocation();
+        CCLOG("Touch Moved = %f, %f", point.x, point.y);
+    }
+}
+
+void GameLayer::onTouchesEnded(const std::vector<Touch*> &touches, cocos2d::Event *event)
+{
+    for (auto iter = touches.begin(); iter != touches.end(); iter++)
+    {
+        Point point = (*iter)->getLocation();
+        CCLOG("Touch Ended = %f, %f", point.x, point.y);
+    }
+}
 
 Scene* GameLayer::scene()
 {
