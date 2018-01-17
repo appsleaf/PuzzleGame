@@ -34,7 +34,10 @@ bool GameLayer::init()
     listener->onTouchesBegan = CC_CALLBACK_2(GameLayer::onTouchesBegan, this);
     listener->onTouchesMoved = CC_CALLBACK_2(GameLayer::onTouchesMoved, this);
     listener->onTouchesEnded = CC_CALLBACK_2(GameLayer::onTouchesEnded, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(GameLayer::onTouchesCancelled, this);
+
+    auto dispatcher = this->getEventDispatcher();
+    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }
@@ -75,8 +78,13 @@ void GameLayer::onTouchesBegan(const std::vector<Touch*> &touches, cocos2d::Even
 {
     for (auto iter = touches.begin(); iter != touches.end(); iter++)
     {
-        Point point = (*iter)->getLocation();
-        CCLOG("Touch Began = %f, %f", point.x, point.y);
+        Point point = (*iter)->getLocationInView();
+
+        int boardX = Common::ComputeBoardX(point.x);
+        int boardY = Common::ComputeBoardY(point.y);
+
+        Sprite* pGameObject = m_pBoard[boardX][boardY];
+        pGameObject->setVisible(!pGameObject->isVisible());
     }
 }
 
@@ -84,8 +92,7 @@ void GameLayer::onTouchesMoved(const std::vector<Touch*> &touches, cocos2d::Even
 {
     for (auto iter = touches.begin(); iter != touches.end(); iter++)
     {
-        Point point = (*iter)->getLocation();
-        CCLOG("Touch Moved = %f, %f", point.x, point.y);
+        Point point = (*iter)->getLocationInView();
     }
 }
 
@@ -93,8 +100,7 @@ void GameLayer::onTouchesEnded(const std::vector<Touch*> &touches, cocos2d::Even
 {
     for (auto iter = touches.begin(); iter != touches.end(); iter++)
     {
-        Point point = (*iter)->getLocation();
-        CCLOG("Touch Ended = %f, %f", point.x, point.y);
+        Point point = (*iter)->getLocationInView();
     }
 }
 
