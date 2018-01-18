@@ -10,6 +10,8 @@
 
 #include "Common.h"
 
+class GameObject;
+
 class GameLayer : public Layer
 {
 public:
@@ -17,17 +19,28 @@ public:
 
     void StartGame();
 
-    void onTouchesBegan(const std::vector<Touch *> &touches, Event *event);
-    void onTouchesMoved(const std::vector<Touch *> &touches, Event *event);
-    void onTouchesEnded(const std::vector<Touch *> &touches, Event *event);
+    bool IsAdjacent(int x1, int y1, int x2, int y2);
+    void SwapObjects(int x1, int y1, int x2, int y2);
+
+    virtual void onTouchesBegan(const std::vector<Touch *> &touches, Event *event);
+    virtual void onTouchesMoved(const std::vector<Touch *> &touches, Event *event);
+    virtual void onTouchesEnded(const std::vector<Touch *> &touches, Event *event);
 
     static Scene* scene();
 
     CREATE_FUNC(GameLayer);
-private:
-    Sprite* m_pBoard[COLUMN_COUNT][MAX_ROW_COUNT];
-    
+
+protected:
+    GameObject* m_pBoard[COLUMN_COUNT][MAX_ROW_COUNT];
     Size m_winSize;
+
+    // 사용자가 터치를 시작했는지 판단하기 위한.
+    bool m_bTouchStarted;
+
+    // 사용자가 터치한 게임 보드상의 좌표를 저장하는데 사용.
+    int m_gestureStartBoardX;
+    int m_gestureStartBoardY;
+
 };
 
 #endif /* GameLayer_h */

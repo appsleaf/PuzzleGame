@@ -62,3 +62,37 @@ void GameObject::SetType(int type)
 {
     m_type = type;
 }
+
+int GameObject::GetTargetBoardX()
+{
+    return m_targetBoardX;
+}
+void GameObject::SetTargetBoardX(int x)
+{
+    m_targetBoardX = x;
+}
+
+int GameObject::GetTargetBoardY()
+{
+    return m_targetBoardY;
+}
+
+void GameObject::SetTargetBoardY(int y)
+{
+    m_targetBoardY = y;
+}
+
+void GameObject::ProcessSliding()
+{
+    Point position = getPosition();
+
+    m_prevBoardX = Common::ComputeBoardX(position.x);
+    m_prevBoardY = MAX_ROW_COUNT -  Common::ComputeBoardY(position.y);
+
+    Point targetPosition = Common::ComputeXY(m_targetBoardX, m_targetBoardY);
+
+    MoveBy* pMoveBy = MoveBy::create(0.1f, Vec2(targetPosition.x - position.x, targetPosition.y - position.y));
+
+    runAction(pMoveBy);
+
+}

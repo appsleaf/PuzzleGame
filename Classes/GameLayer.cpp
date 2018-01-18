@@ -30,17 +30,21 @@ bool GameLayer::init()
 
     StartGame();
 
-    auto listener = EventListenerTouchAllAtOnce::create();
+    // Enable touches
+    EventListenerTouchAllAtOnce* listener = EventListenerTouchAllAtOnce::create();
     listener->onTouchesBegan = CC_CALLBACK_2(GameLayer::onTouchesBegan, this);
-    listener->onTouchesMoved = CC_CALLBACK_2(GameLayer::onTouchesMoved, this);
+    listener->onTouchesMoved= CC_CALLBACK_2(GameLayer::onTouchesMoved, this);
     listener->onTouchesEnded = CC_CALLBACK_2(GameLayer::onTouchesEnded, this);
-    listener->onTouchesCancelled = CC_CALLBACK_2(GameLayer::onTouchesCancelled, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-    auto dispatcher = this->getEventDispatcher();
-    dispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+    출처: http://gharlic.tistory.com/27 [gharlic]
+
+    //_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
     return true;
 }
+
 
 void GameLayer::StartGame()
 {
@@ -72,35 +76,72 @@ void GameLayer::StartGame()
             this->addChild(pGameObject, zGameObject);
         }
     }
+
+    m_bTouchStarted = false;
+
 }
 
-void GameLayer::onTouchesBegan(const std::vector<Touch*> &touches, cocos2d::Event *event)
+bool GameLayer::IsAdjacent(int x1, int y1, int x2, int y2)
 {
-    for (auto iter = touches.begin(); iter != touches.end(); iter++)
-    {
-        Point point = (*iter)->getLocationInView();
+    return (abs(x1 - x2) + abs(y1 - y2)) == 1;
+}
 
-        int boardX = Common::ComputeBoardX(point.x);
+void GameLayer::SwapObjects(int x1, int y1, int x2, int y2)
+{
+    GameObject* pTemp = m_pBoard[x1][y1];
+
+    m_pBoard[x1][y1] = m_pBoard[x2][y2];
+    m_pBoard[x2][y2] = pTemp;
+
+//    m_pBoard[x1][y1]->setPosition(Common::ComputeXY(x1, y1));
+//    m_pBoard[x2][y2]->setPosition(Common::ComputeXY(x2, y2));
+    m_pBoard[x1][y1]->SetTargetBoardX(x1);
+    m_pBoard[x1][y1]->SetTargetBoardY(y1);
+    m_pBoard[x2][y2]->SetTargetBoardX(x2);
+    m_pBoard[x2][y2]->SetTargetBoardY(y2);
+
+    m_pBoard[x1][y1]->ProcessSliding();
+    m_pBoard[x2][y2]->ProcessSliding();
+}
+
+
+void GameLayer::onTouchesBegan(const std::vector<Touch *> &touches, Event *event)
+{
+    Touch* pTouch = (Touch*) touches.back();
+    Point point = pTouch->getLocationInView();
+
+    m_gestureStartBoardX = Common::ComputeBoardX(point.x);
+    m_gestureStartBoardY = Common::ComputeBoardY(point.y);
+
+    CCLOG("x1 = %d, y1= %d", m_gestureStartBoardX,m_gestureStartBoardY);
+
+    m_bTouchStarted = true;
+}
+
+void GameLayer::onTouchesMoved(const std::vector<Touch *> &touches, Event *event)
+{
+
+}
+
+void GameLayer::onTouchesEnded(const std::vector<Touch *> &touches, Event *event)
+{
+    if (m_bTouchStarted)
+    {
+        Touch* pTouch = (Touch*) touches.back();
+        Point point = pTouch->getLocationInView();
+
+        int boardX = Common::ComputeBoardY(point.x);
         int boardY = Common::ComputeBoardY(point.y);
 
-        Sprite* pGameObject = m_pBoard[boardX][boardY];
-        pGameObject->setVisible(!pGameObject->isVisible());
-    }
-}
+        if (m_gestureStartBoardX != boardX || m_gestureStartBoardY != boardY)
+        {
+            if (IsAdjacent(m_gestureStartBoardX, m_gestureStartBoardY, boardX, boardY))
+            {
+                SwapObjects(m_gestureStartBoardX, m_gestureStartBoardY, boardX, boardY);
+            }
 
-void GameLayer::onTouchesMoved(const std::vector<Touch*> &touches, cocos2d::Event *event)
-{
-    for (auto iter = touches.begin(); iter != touches.end(); iter++)
-    {
-        Point point = (*iter)->getLocationInView();
-    }
-}
-
-void GameLayer::onTouchesEnded(const std::vector<Touch*> &touches, cocos2d::Event *event)
-{
-    for (auto iter = touches.begin(); iter != touches.end(); iter++)
-    {
-        Point point = (*iter)->getLocationInView();
+            m_bTouchStarted = false;
+        }
     }
 }
 

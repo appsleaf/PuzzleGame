@@ -24,8 +24,25 @@ public:
     int GetType();
     void SetType(int type);
 
+    int GetTargetBoardX();
+    void SetTargetBoardX(int x);
+
+    int GetTargetBoardY();
+    void SetTargetBoardY(int y);
+
+    void ProcessSliding();
+
 private:
     int m_type;
+
+    // 움직이기 전의 좌표
+    int m_prevBoardX;
+    int m_prevBoardY;
+
+    // 움직일 때 향해야할 좌표
+    int m_targetBoardX;
+    int m_targetBoardY;
+
 };
 
 #endif /* GameObject_h */
