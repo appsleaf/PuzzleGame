@@ -9,8 +9,11 @@
 #define Common_h
 #include "cocos2d.h"
 
+USING_NS_CC;
+
 #define DESIGN_WIDTH    768.0f
 #define DESIGN_HEIGHT   1024.0f
+
 #define ROW_COUNT       8
 #define COLUMN_COUNT    8
 #define MAX_ROW_COUNT   10
@@ -20,7 +23,6 @@
 #define OBJECT_WIDTH    96
 #define OBJECT_HEIGHT   96
 
-USING_NS_CC;
 
 class Common
 {

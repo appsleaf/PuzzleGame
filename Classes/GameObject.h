@@ -10,6 +10,8 @@
 
 #include "Common.h"
 
+class GameLayer;
+
 class GameObject : public Sprite
 {
 public:
@@ -21,6 +23,7 @@ protected:
 
 public:
     static GameObject* Create(int type);
+
     int GetType();
     void SetType(int type);
 
@@ -31,6 +34,14 @@ public:
     void SetTargetBoardY(int y);
 
     void ProcessSliding();
+    void SlidingCompleteHandler();
+
+    void Rollback();
+
+    void ProcessFalling();
+    void FallingCompleteHandler();
+
+    void SetGameLayer(GameLayer* pGameLayer);
 
 private:
     int m_type;
@@ -42,6 +53,8 @@ private:
     // 움직일 때 향해야할 좌표
     int m_targetBoardX;
     int m_targetBoardY;
+
+    GameLayer* m_pGameLayer;
 
 };
 

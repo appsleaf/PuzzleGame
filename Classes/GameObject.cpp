@@ -6,8 +6,11 @@
 //
 
 #include "GameObject.h"
+#include "GameLayer.h"
+#include <stdio.h>
 
 GameObject::GameObject()
+: m_pGameLayer(NULL) // 변수의 초기화
 {
 
 }
@@ -27,7 +30,6 @@ GameObject* GameObject::create(const char* pszFileName, const Rect& rect)
     }
 
     CC_SAFE_DELETE(pSprite);
-
     return NULL;
 }
 
@@ -93,6 +95,63 @@ void GameObject::ProcessSliding()
 
     MoveBy* pMoveBy = MoveBy::create(0.1f, Vec2(targetPosition.x - position.x, targetPosition.y - position.y));
 
-    runAction(pMoveBy);
+    //FiniteTimeAction* pAction = Sequence::create(pMoveBy, CallFunc::create (this, callfunc_selector(GameObject::SlidingCompleteHandler)), NULL);
+    //CallFunc *pCallFunc = CallFunc::create( CC_CALLBACK_0(GameObject::SlidingCompleteHandler,this));
 
+    FiniteTimeAction* pAction = Sequence::create(pMoveBy, CallFunc::create( CC_CALLBACK_0(GameObject::SlidingCompleteHandler,this)), NULL);
+
+
+    runAction(pAction);
+
+}
+
+void GameObject::SlidingCompleteHandler()
+{
+    int x1 = m_prevBoardX;
+    int y1 = m_prevBoardY;
+    int x2 = m_targetBoardX;
+    int y2 = m_targetBoardY;
+
+    m_pGameLayer->SlidingFinished(x1, y1, x2, y2);
+}
+
+
+void GameObject::Rollback()
+{
+    Point targetPosition = Common::ComputeXY(m_prevBoardX, m_prevBoardY);
+    Point position = getPosition();
+
+    MoveBy* pMoveBy = MoveBy::create(0.1f, Vec2(targetPosition.x - position.x, targetPosition.y - position.y));
+
+    FiniteTimeAction* pAction = Sequence::create(pMoveBy, NULL);
+
+    runAction(pAction);
+}
+
+void GameObject::ProcessFalling()
+{
+    Point position = getPosition();
+
+    m_prevBoardX = Common::ComputeX(position.x);
+    m_prevBoardY = MAX_ROW_COUNT - Common::ComputeY(position.y);
+
+    Point targetPosition = Common::ComputeXY(m_targetBoardX, m_targetBoardY);
+
+    int fallingStepCount = m_targetBoardY - m_prevBoardY;
+
+    MoveBy* pMoveBy = MoveBy::create(0.1f * fallingStepCount, Vec2(targetPosition.x - position.x, targetPosition.y - position.y));
+
+    FiniteTimeAction* pAction = Sequence::create(pMoveBy, CallFunc::create(CC_CALLBACK_0(GameObject::FallingCompleteHandler,this)),NULL);
+
+    runAction(pAction);
+}
+
+void GameObject::FallingCompleteHandler()
+{
+
+}
+
+void GameObject::SetGameLayer(GameLayer *pGameLayer)
+{
+    m_pGameLayer = pGameLayer;
 }
